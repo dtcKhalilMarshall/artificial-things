@@ -63,6 +63,9 @@ function loadStyle(getStyleDirectory) {
     // add chosen JS file
     loadJS(`${urlRoot}${getStyleDirectory}/scripts.js`);
 
+    // update about this theme
+    document.querySelector("#infoList > li:first-child > a").href = `${urlRoot}${getStyleDirectory}/readme.txt`;
+
 }
 
 
@@ -90,7 +93,7 @@ async function getData(url, options = {}) {
 
 
 // dynamically style info from JSON data in core-style-menu.js
-async function loadStyleMenu() {
+async function updateMenus() {
     document.querySelector("#styleList").innerHTML = ""; // clear existing innerHTML, if any
     getData("core-style-menu.js").then(function(menuItems) {
         for (oneItem of menuItems) {
@@ -104,7 +107,7 @@ async function loadStyleMenu() {
 document.addEventListener("DOMContentLoaded", function () {
 
     // dynamically generate style menu from json file — do this before adding event listeners!
-    loadStyleMenu();
+    updateMenus();
 
     // respond to clicks on the burger
     document.querySelector("#navBurger").addEventListener("click", function (event) {
